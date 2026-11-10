@@ -59,4 +59,13 @@ jobs:
       # always permitted for a trusted publisher, so the "Allow npm publish"
       # box on npmjs.com stays unchecked. Access level comes from
       # publishConfig.access in package.json.
-      - run: npm stage publish
+      #
+      # Pass --tag explicitly: `npm stage publish` ignores publishConfig.tag, so
+      # without it a prerelease would be staged as `latest`. Any version with a
+      # `-` (e.g. 2.0.1-rc.1) goes to `rc`; everything else goes to `latest`.
+      - name: Stage publish
+        run: |
+          VERSION=$(node -p 'require("./package.json").version')
+          case "$VERSION" in *-*) TAG=rc ;; *) TAG=latest ;; esac
+          echo "Staging $VERSION with dist-tag $TAG"
+          npm stage publish --tag "$TAG"
