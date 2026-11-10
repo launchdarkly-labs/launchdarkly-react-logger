@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bradbunce/launchdarkly-react-logger.git"
+    "url": "git+https://github.com/launchdarkly-labs/launchdarkly-react-logger.git"
   },
   "type": "module",
   "engines": {
